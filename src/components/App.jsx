@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { addReminder, deleteReminder } from '../actions';
+import { addReminder, deleteReminder, clearReminder } from '../actions';
 
 
 class App extends Component {
@@ -32,7 +32,7 @@ class App extends Component {
 			<li key={reminder.id} className="list-group-item">
 			    <div className="list-item">
 				<div>{`${reminder.text} --- ${moment(reminder.dueDate).fromNow()}`}</div>
-				<div><em>{moment(reminder.dueDate).format('LL')}</em></div>
+				<div><em>{moment(reminder.dueDate).format('LLL')}</em></div>
 			    </div>
 			    <div
 				className="list-item delete-button"
@@ -72,6 +72,11 @@ class App extends Component {
 		    > Add Reminder </button>
 		</div>
 		{this.renderReminder()}
+		<div
+		    className="btn btn-danger"
+		    onClick={() => this.props.clearReminder()}>
+		    Clear Reminder
+		</div>
 	    </div>
 	);
     }
@@ -83,4 +88,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {addReminder, deleteReminder})(App);
+export default connect(mapStateToProps, {addReminder, deleteReminder, clearReminder})(App);
